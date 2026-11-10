@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상담 문의 · 오시는 길 | 전주 쿠미 운동발달센터</title>
+  <meta name="description" content="전주 쿠미 운동발달센터 상담 문의와 오시는 길 안내. 아동 바우처 운동발달 활동 상담 방법을 확인하세요." />
+  <link rel="canonical" href="contact.html" /><!-- 입력 필요: 배포 후 전체 주소로 교체 -->
+  <meta property="og:title" content="상담 문의 · 오시는 길 | 쿠미 운동발달센터" />
+  <meta property="og:description" content="전주 아동 운동발달 · 바우처 활동 상담 안내." />
+  <meta property="og:image" content="images/space-1.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="contact">
+  <header id="site-header"></header>
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <p class="crumb"><a href="index.html">홈</a> / 상담·위치</p>
+        <p class="overline">Contact</p>
+        <h1>상담 문의와 오시는 길</h1>
+        <p class="lead">아이 나이와 걱정되는 모습을 편하게 알려 주세요. 아동 바우처 이용 방법도 함께 안내해 드려요.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- 주소 + 지도 (config.js의 address로 자동 표시) -->
+        <div class="loc-row" id="locRow"></div>
+        <!-- 연락처는 config.js에 입력하면 아래에 자동으로 나타납니다 -->
+        <div class="contact-grid" id="contactGrid"></div>
+      </div>
+    </section>
+
+    <section class="section tint">
+      <div class="container split">
+        <div class="split-media reveal"><figure class="ph" data-file="space-1.jpg"><img src="images/space-1.jpg" alt="센터 활동 공간" loading="lazy" /></figure></div>
+        <div class="reveal">
+          <p class="overline">Before you visit</p>
+          <h2>상담 전에 알아 두면 좋아요</h2>
+          <ul class="checks">
+            <li>아이가 편하게 움직일 수 있는 옷을 입혀 주세요</li>
+            <li>평소 걱정되는 모습을 짧게 메모해 오시면 좋아요</li>
+            <li>아동 바우처를 받으셨다면 상담 때 알려 주세요</li>
+            <li>바우처 대상 여부와 신청은 주소지 행정복지센터에서 확인할 수 있어요</li>
+          </ul>
+          <div class="sec-foot"><a class="btn btn-primary" data-cta href="#contactGrid">상담 방법 확인하기</a><a class="text-link" href="faq.html">자주 묻는 질문 보기 →</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    (function () {
+      const S = SITE, I = window.ICON, items = [];
+      const loc = document.getElementById("locRow");
+      if (S.address) {
+        const q = encodeURIComponent(S.address);
+        loc.innerHTML = `
+          <div class="contact-item loc-card">
+            <div class="ic">${I.pin}</div>
+            <p class="lbl">센터 위치</p>
+            <p class="val">${S.address}</p>
+            <div class="map-links">
+              <a class="btn btn-primary btn-sm" href="${S.naverPlace || "https://map.naver.com/p/search/" + q}" target="_blank" rel="noopener">네이버 지도로 길찾기</a>
+              <a class="btn btn-line btn-sm" href="https://map.kakao.com/?q=${q}" target="_blank" rel="noopener">카카오맵으로 보기</a>
+            </div>
+          </div>
+          <div class="map-frame">
+            <iframe src="https://maps.google.com/maps?q=${q}&z=17&output=embed" title="${S.name} 위치 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>`;
+      } else {
+        items.push(`<div class="contact-item"><div class="ic">${I.pin}</div><p class="lbl">지역</p><p class="val">${S.region}</p></div>`);
+      }
+      if (S.phone) items.push(`<div class="contact-item reveal"><div class="ic">${I.phone}</div><p class="lbl">전화 상담</p><p class="val"><a href="tel:${S.phone.replace(/[^0-9+]/g, "")}">${S.phone}</a></p></div>`);
+      if (S.email) items.push(`<div class="contact-item reveal"><div class="ic">${I.mail}</div><p class="lbl">이메일 상담</p><p class="val"><a href="mailto:${S.email}">${S.email}</a></p></div>`);
+      if (S.kakao) items.push(`<div class="contact-item reveal"><div class="ic">${I.chat}</div><p class="lbl">카카오톡 상담</p><p class="val"><a href="${S.kakao}" target="_blank" rel="noopener">카카오톡 채널 열기</a></p></div>`);
+      if (S.hours) items.push(`<div class="contact-item reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><p class="lbl">상담 가능 시간</p><p class="val">${S.hours}</p></div>`);
+      const grid = document.getElementById("contactGrid");
+      grid.innerHTML = items.join("");
+      if (!items.length) grid.style.display = "none";
+      grid.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+    })();
+  </script>
+</body>
+</html>

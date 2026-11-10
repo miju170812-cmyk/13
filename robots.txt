@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# [배포 후 입력] 홈페이지 주소가 정해지면 아래 줄의 주소를 바꿔 주세요
+Sitemap: https://[배포 후 입력]/sitemap.xml
